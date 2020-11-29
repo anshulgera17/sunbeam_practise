@@ -1,1 +1,0 @@
-patern.o: ../patern.c

@@ -1,0 +1,28 @@
+assignment 3
+1.ls -l -dt */
+2. ls -l -Sd */
+3.ls -l -i
+8.1-  ls -l lab-practice/os-me/one/two/three/four/five/
+8.2- cat >  lab-practice/os-me/one/two/three/four/44.txt
+8.3- rm  lab-practice/os-me/one/two/three/four/five/555.txt
+8.4- cd lab-practice/os-me/one/two/three/four/five/
+8.5- cat > ../../3.txt
+8.6- ls -l ../../../
+8.7- rm ../../../222.txt
+8.8- cd ../../../../
+8.9- rm two/three/four/five/*
+8.10- rm two/three/four/five
+8.11- rm -r two/three/four
+8.12- cd ~
+9 - touch two/three/3.txt
+10.1- wc data.txt
+10.2- grep "files" data.txt
+10.3-grep -w "file" data.txt
+10.4-grep -v "files" data.txt
+10.5-
+10.6-grep "^f" data.txt
+10.7-grep "g$" data.txt
+10.8- head -2 data.txt
+10.9- tail -3 data.txt
+10.10- head -5 data.txt |tail -3
+
