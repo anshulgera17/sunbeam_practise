@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "funcs.h"
+
+int i = 1;
+void fun()
+{
+
+	printf("%d\n", ++a);
+}
+
+int main(void)
+{
+	printf("main : %d\n", a);
+	fun1();
+	fun();
+	fun();
+	fun();
+	return 0;
+}
+

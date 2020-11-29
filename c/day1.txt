@@ -1,0 +1,215 @@
++ Nilesh Ghule
+
++ Daily Schedule:
+	8:45 AM
+	11:00 AM -- 15 mins
+	1:30 PM
+	
+	2:15 PM
+	6:00 - 7:00 PM
+	
++ DAC course:
+	- Good placement
+	- Good knowledge
+	- Duration: 6 months -- 24 weeks.
+		- 18 weeks -- teaching -- 8 modules
+		- 1 week -- CCEE preparations
+		- 1 week -- CCEE exam
+		- 4 weeks -- project & campus preparations
+	+ Modules:
+		1. C++ Programming -- 2 weeks 
+		2. Data Structures -- 1.5 weeks
+		3. Operating Systems -- 1.5 weeks
+		4. Java Technologies -- 5 weeks
+		5. MS.NET -- 2 weeks
+		6. Web Programming -- 2.5 weeks
+		7. Database Technologies -- 1.5 weeks
+		8. Software Engg -- 1 week
+		9. Upcoming Technologies *
+		10. Aptitude & Business Communication
+
++ C++ Programming:
+	1. C revision -- 0.5 week
+	2. C++ -- 1.5 weeks
+	
++ Linux:
+	. --> current directory
+	.. --> parent directory
+	~ --> home directory
+	
++ C programming:
+	- Low Level Language:
+		- Arch Dependent -- Instruction set of the processor -- Not portable.
+		- Tough to Learn
+		- Efficient -- Space & Time.
+		- e.g. Assembly & Machine Language **
+			* Assembly --> assembler (program) --> Machine Level
+	- High Level Language:
+		- Arch Independent
+		- Easy to Learn
+		- Less Efficient
+		- e.g. Basic, Fortran, C, Java, ...
+			* High Level --> compiler (program) --> Assembly
+
+	* gcc hello.c -o hello.out
+		"gcc" is a front end for all compiler tools:
+			- .c (source code) 
+				- preprocessor (cpp) : program that handle preprocess directives (# statements).
+			- .i (expanded source code)
+				- compiler (cc1) : program that check syntax & convert it into low level language (assembly).
+			- .s (assembly code)
+				- assembler (as) : program that convert it into machine lang code (native code).
+			- .o (object code) + .a (archive) or .so (shared objects) library files.
+				- linker (ld) : program that links object files with library files & create executable.
+			- .out (executable code)
+	
+	* hello.out contents --> ELF (Executable Linking Format).
+		- exe header -
+			- magic number (?ELF)
+			- address of entry point function -- main()
+			- information about all sections.
+		- text -> machine level code (object code + library code).
+		- data -> initialized global & static variable
+		- bss (Block Started by Symbol) -> uninitialized global & static variable
+		- rodata -> string constants
+		- symbol table -> info about all symbols (variable & function names).
+			| name | size | data type | section | flags | address |
+	
+	* ./hello.out
+		- Loads program (executable file) in the memory (by loader -- part of OS) and create Process for the execution.
+		
++ C Programming:
+	- Deinnis Ritchie -- 1972 -- During development of UNIX OS.
+	- Standards:
+		- K & R C 
+			- 27 keywords
+		- ANSI -- C89
+			- 32 keywords --> void, enum, const, volatile, signed.
+		- ANSI -- C99
+			- New keywords: bool, wchar_t, ...
+	- Tokens (Basic Elements):
+		- Keywords: 32 = 27 + 5
+		- Constants: 1, -4, 123U, 123L, 123UL, 2.3f, 2.3, -4.7, 1.234567e+5, 'A', '\101', '\x41', ...
+		- Identifiers: names of variables & functions e.g. main, printf, i, ...
+		- Strings: "123", "ABCD", ...
+		- Operators:
+			+ Arithmetic: + - * / % ++ --
+			+ Assignment & ShortHand: =    +=     -=     *=     ....
+			+ Relational Operators:  <     >     <=    >=    ==     !=
+			+ Logical Operations:   &&     ||     !
+			+ Bitwise Operators:   &    |    ^    <<     >>    ~
+			+ Special Operators:   ?:   sizeof    *    ->    .    ()    ,   []
+			* Precedance & Associativity:
+				2 + 3 * 4 = 2 + 12 = 14
+				2 - 3 + 4 = -1 + 4 = 3
+		- Special Symbols
+			-  {  }   
+	+ Data Types:
+		- Primary:
+			- int, float, char, double
+		- Modifiers:
+			- signed, unsigned, short, long
+		- Qualifiers:
+			- const, volatile
+	+ Statements:
+		- Sequntial statements:
+		- Control Flow statements:
+			- Decision Making:
+				- if, if-else
+			- Selection:
+				- switch-case
+			- Iterative/Repetition (Loops):
+				- while -- condition based repeat
+				- for -- counting repeat (know number of iterations).
+				- do-while -- exec at least once & then check condition.
+			- Jumps:
+				- break --> loop & switch
+				- continue --> loop
+				- goto --> within function
+				- return --> return from function.
+		+ Lab Assign:
+			* Design a Pattern:
+						11
+					   2112
+					  321123
+					 43211234
+					  321123
+					   2112
+					    11
+	+ Bitwise Operators:
+
++ Functions:
+	- Function
+		- Input: Arguments
+		- Output: Return Value
+	+ Reusability
+	1. Function Defination/Implementation/Body:
+		int sum(int a, int b) // a,b --> formal args
+		{
+			int c = a + b;
+			return c;
+		}
+	2. Function Declaration/Prototype:
+		int sum(int a, int b);
+	3. Function Call:
+		int main()
+		{
+			int res, x=10, y=20;
+			res = sum(x, y); // x, y --> actual args
+			printf("%d\n", res);
+			return 0;
+		}
+	- Function always return to the statement from where it is called.
+					    
+	+ Function Types:
+		- User Defined:
+			- Declare, Define, Call --> Programmer.
+		- Library Functions:
+			- Declaration & Defination --> Library.
+				- Declaration --> Header file e.g. /usr/include/stdio.h
+				- Defination --> Library file e.g. libc.a or libc.so
+			- Call --> Programmer
+				- 
+			- e.g. printf(), scanf(), ...
+	+ main() functions:
+		- Called by OS.
+		- Returns to the OS.
+		- User defined -- System declared.
+			- int main(void);
+			- int main(int argc, char *argv[]);
+			- int main(int argc, char *argv[], char *envp[]);
+		- Return value:
+			- 0: successful execution.
+			- NonZero: failure.
+	+ Function Actication Record / Stack Frame:
+		- When a function is called its FAR is created on stack.
+		- When function returns FAR is destroyed.
+		- FAR contains:
+			- Local Variables
+			- Formal Arguments
+			- Return Address -- Addr of next Instruction after the function call.
+		
+	
+	
+					 
+			
+				
+			
+		
+		
+		
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+

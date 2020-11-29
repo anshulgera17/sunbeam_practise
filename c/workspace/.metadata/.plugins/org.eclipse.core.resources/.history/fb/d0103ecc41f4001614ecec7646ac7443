@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+int b = 1; // global
+void fun1()
+{
+	int a = 1; // local
+	a++;
+	printf("a = %d\n", a);
+}
+void fun2()
+{
+	//printf("%d\n", a); // error
+	a++;
+	printf("a = %d\n", a);
+}
+int main(void)
+{
+	fun1();
+	fun1();
+	fun1();
+	return 0;
+}

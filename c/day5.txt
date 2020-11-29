@@ -1,0 +1,92 @@
++ File IO:
+	- File is collection of data/info on secondary storage device.
+	- File operations:
+		- read & write
+		- open, close
+	+ Text file vs Binary file:
+		T1: numbers are stored as sequence of characters.
+		B1: numbers are stored as per their memory representation.
+		T2: newline is stored as \r\n.
+		B2: newline is stored as \n.
+		T3: End of file is given by a special char (ascii=26).
+		B3: End of file is taken from OS directory entry.
+	- FILE *fp = fopen("filepath", "mode");
+		- arg1: path of file.
+		- arg2: mode
+			w : write -- if file doesn't exist, new file will be created. if file exists it will be truncated.
+			a : append -- if file doesn't exist, new file will be created. if file exists, write is done at the end of file.
+			r : read -- if file doesn't exist, fopen() fails. if file exists, it is opened for reading.
+			w+ : write+ --> same as write + can also read from file.
+			a+ : append+ --> same as append + can also read from file.
+			r+ : read+ --> same as read + can also write to file.
+			wb, ab, rb, wb+, ab+, rb+ --> binary modes.
+		- return: fopen() get the info about file into a struct & return its pointer on success. On failure it returns NULL.
+	- fclose(fp);
+		- close the file.
+		- arg1: FILE pointer
+	- fputc(ch, fp);					ch = fgetc(fp);
+		- fputc() -- write a char in file.
+		- fgetc() -- read char from file. If end of file is reached, returns -1 (EOF macro).
+	- fputs(str, fp);					fgets(str, size, fp);
+		- fputs() -- write string into the file.
+		- fgets() -- reads a string from file till \n (including \n).
+			- returns NULL on end of file.
+	- fprintf(fp, "fmt str", ...);		fscanf(fp, "fmt str", ...);
+	- fwrite(buf, rec_size, cnt, fp);	fread(buf, rec_size, cnt, fp);
+		- fwrite() -- write (rec_size*cnt) bytes from "buf" address to the file and returns number of records successfully written.
+		- fread() -- try to read (rec_size*cnt) bytes from file into the address given by "buf" and returns number of records successfully read. When end of file is reached, fread() returns 0.
+	+ long fseek(FILE *fp, long offset, int origin);
+		- arg1: FILE pointer
+		- arg2: how many bytes to adjust?
+			+ve --> ahead
+			-ve --> behind
+			0 --> no change.
+		- arg3: change file pos with respect to what?
+			SEEK_SET --> from start of file -- offset must be +ve.
+			SEEK_CUR --> from cur file pos -- offset can be +ve or -ve.
+			SEEK_END --> from end of file -- offset must be -ve.
+		- return: Return the new file pos from beginning of the file.
+	- long ftell(FILE *fp);
+		- return: Return the cur file pos from beginning of the file.
+	- rewind(fp);
+		- Change file pos to the beginning (pos = 0).
+		- same as: fseek(fp, 0, SEEK_SET);
+
+
++ Linux -- Hot Keys:
+	1. Ctrl+C --> Terminate the program (when program in infinte loop).
+	2. Ctrl+S --> Suspend the program
+	3. Ctrl+Q --> Resume the suspended program
+	4. Ctrl+Z --> Put current process in background.
+	5. Ctrl+D --> End of Stdin.
+	
++ volatile:
+	-  
+	
++ const:
+	- 
+	
++ Preprocessor Directives:
+	- Conditional compilation:
+	
+	- inline function:
+	
++ Nilesh Ghule.
+	nilesh@sunbeaminfo.com
+	9527331338
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

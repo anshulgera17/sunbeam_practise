@@ -1,0 +1,181 @@
++ object file contents:
+	- obj header --> info about all sections
+	- text --> machine level corresponding to source code (.c)
+	- data --> init global & static vars
+	- rodata --> string constants
+	- bss --> uninit global & static vars
+	- symbol table --> symbols info
+		- name, size, data type, section, flags, "address" 
+	* Address given by the compiler can be modified later by the Linker and give a new address. Hence this code (instructions & vars inside object file) is relocatable.
+	
++ Function prototypes:
+	- int sum(void);
+		- zero args
+	- int sum(int,int);
+		- two args
+	- int sum();
+		- compiler do not check args
+		
++ Connect to Server --> Server Address
+	+ smb://sunbeamc/dacassign
+		- Username: sunbeam
+		- Password: sunbeam
+		- Domain: SIPL
+	
++ Eclipse Debugging:
+	- Internally it uses "gdb" debugger.
+	
++ Calling conventions:
+	- Decides the arg push order on stack and stack cleanup responsibility.
+	1. pascal (old):
+		- push order: left to right
+		- stk cleanup: called function
+	2. cdecl - c declarator - default calling conv for C/C++ programs
+		- push order: right to left
+		- stk cleanup: calling function
+	3. stdcall - standard call
+		- push order: right to left
+		- stk cleanup: called function
+	+ Turbo C:
+		Program1:
+			void cdecl fun(int a, int b, int c)
+			{
+				printf("%d %d %d\n", a, b, c); // 6 5 4
+			}
+			int main()
+			{
+				int i=3;
+				fun(++i, ++i, ++i); // fun(6, 5, 4);
+				return 0;
+			}
+		Program2:
+			void pascal fun(int a, int b, int c)
+			{
+				printf("%d %d %d\n", a, b, c); // 4 5 6
+			}
+			int main()
+			{
+				int i=3;
+				fun(++i, ++i, ++i); // fun(4, 5, 6);
+				return 0;
+			}
+	+ GCC:
+		void __attribute((cdecl))__ fun(int, int, int);
+
++ Function Args:
+	void sumpro(int a, int b, int *ps, int *pp)
+	{
+		*ps = a + b;
+		*pp = a * b;
+	}
+	int main()
+	{
+		int x=12, y=4, s, p;
+		sumpro(x, y, &s, &p);
+		printf("%d %d\n", s, p);
+		return 0;
+	}
+	
+	* Three types of Args:
+		1. in params: To give input to function.
+		2. out params: To take output from function.
+		3. in-out params: To give input & take output.
+		
+	* Two types of passing args:
+		1. Pass by value:
+			- actual arg is copied into formal arg.
+			- Any changes done in formal arg are not reflected into actual arg.
+		2. Pass by address:
+			- actual arg address is passed into formal arg.
+			- The actual arg can be modified via formal arg (pointer).
+			- Since copy is not created less memory is needed (size of pointer) while passing arg.
+		
++ Pointer:
+	- &s 		--> address of s
+	- *p 		--> value at p
+	- int *p; 	--> p is pointer to int
+	
+	1. Pointer is a variable that stores address of some memory location.
+	2. Address is an unsigned int used to identify memory location in the RAM.
+	3. Even though Internally pointer is unsigned int, in C it is a special data type. So * operator works only on pointer.	
+	4. Size of pointer is always 4 bytes on 32-bit compiler or 8 bytes on 64-bit compiler -- irrespective of the data type of the pointer.	
+	5. The size of data type of pointer is called as scale factor.
+	6. Pointer Arithmetic:
+		ptr + i = addr in ptr + i * s.f. of ptr
+		ptr - i = addr in ptr - i * s.f. of ptr
+		ptr1 - ptr2 = (addr in ptr1 - addr in ptr2) / s.f. of ptr1
+		
++ Function Pointer:
+	- When a function is called, compiler calls it by its address (in CALL instruction).
+	- The function name itself represents its starting address i.e. address of the first instruction.
+	- The address of function is stored in special pointer type called as "function pointer".
+		- declare
+		- assign
+		- call func ptr
+	- For sake of simplicity function pointer are often typedef'd.
+		- typedef syntax
+		- declare
+		- assign
+		- call func ptr
+	- Function pointer are used to implement "callback functions". The function that implemented in the program but called by the system.
+		Example: main(), comp_int() in bsearch demo.
+	- Applications:
+		- IVT --> ISR
+		- C++ --> vtable 
+		- .Net --> Delegate
+		- OS --> signal handler, device drivers, 
+	
++ Storage Classes:
+	- Decides location/storage of the variable, life of variable, scope of variable.
+						| storage	| def value	| life		| scope		|
+						---------------------------------------------------
+	1. auto (local)		| stack		| garbage	| block 	| block 	|
+	2. extern (global)	| data sect | zero 		| program	| program	|
+	3. static			| data sect | zero		| program	| limited	|
+	4. register			| cpu regr  | garbage	| block		| block		|
+		
+	+ Example:
+		int main()
+		{
+			extern int res;
+			printf("%d\n", res);
+			return 0;
+		}
+		int res = 100;
+		
+	+ C scopes:
+		- Block -- { int a = 10; ... }
+		- File -- static int a = 10;  // outside a function
+		- Program -- int a = 10;	// outside a function.
+				
+	+ static is same as global with limited scope.
+		- block
+		- file
+	+ static function cannot be accessed in another file of the program.
+	
+	+ "register" keyword request compiler to assign a register for the variable. If no cpu register is empty, the variable will be treated as local variable without any error/warning.
+	
++ Array:
+	- Collection similar data elements in contiguous memory locations.
+	- All elements share the same name i.e. name of array and are distinguished by index.
+	- Array index in range 0 to n-1, where n is num of elements in array.
+		arr[0], arr[1], ..., arr[n-1].
+	- Accessing any element outside the range will give undefined behaviour. Checking array bounds is reponsibility of programmer (not of compiler).
+	
+	int arr[5];	// arr is array of 5 int.
+	int arr[5] = {11, 22, 33, 44, 55};	// 5 eles are init 11 ... 55
+	int arr[] = {11, 22, 33, 44}; // array is 4 eles.
+	int arr[5] = {11, 22, 33}; // array init 11 22 33 0 0
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

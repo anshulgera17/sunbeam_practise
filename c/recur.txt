@@ -1,0 +1,39 @@
+int fact(int n = 0)
+{
+	int res;
+	if(n==0) // true
+		return 1;
+	res = n * fact(n-1) ;
+	return res;
+}
+int fact(int n = 1)
+{
+	int res;
+	if(n==0)
+		return 1;
+	res [1] = n [1] * [ fact(n-1) ]=1;
+	return res [1];
+}
+int fact(int n = 2)
+{
+	int res;
+	if(n==0)
+		return 1;
+	res [2] = n [2] * [ fact(n-1) ]=1;
+	return res [2];
+}
+int fact(int n = 3)
+{
+	int res;
+	if(n==0)
+		return 1;
+	res [6] = n [3] * [ fact(n-1) ]=2 ;
+	return res [6];
+}
+int main()
+{
+	int res;
+	res = [ fact(3) ]=6;
+	printf("%d\n", res); // 6
+	return 0;
+}

@@ -1,0 +1,125 @@
++ Calling convention:
+	- Stack cleanup -- who is popping the args of the function from the stack?
+		A. calling --> After function call compiler generates pop instructions.
+		B. called --> At the end of called function compiler generates pop instructions.
+		
++ typedef:
+	- Giving new name to the data types.
+	- Readability:
+		typedef short int int16_t;
+		typedef unsigned short int uint16_t;
+	- To handle complicated types:
+		typedef void (*funptr_t)(int,int);
+		funptr_t ptr;
+	- 
+		typedef struct book
+		{
+			// ...
+		} book_t;
+		
+		struct book b1;
+		book_t b1;
+		
++ Linux:
+	- "ar" --> .a file
+		* Begging Linux Programming -- 
+	
++ String:
+	- Array of characters terminated with null character '\0'.
+	- '\0' is char with ascii value 0.
+	- char str1[] = {'A', 'B', 'C', 'D', '\0'};
+		for(i=0; i<5; i++)
+			printf("%c", str1[i]);
+	- char str2[] = "ABCD";
+		- for(i=0; str2[i]!='\0'; i++)
+			printf("%c", str2[i]);
+		- printf("%s\n", str2);
+		- puts(str2);
+		
+	+ String IO: <stdio.h>
+		char str[80];
+		- scanf("%s", str); --> scans single word (space...)
+		- scanf("%[^\n]", str); --> scans whole line (till enter).
+		- gets(str); --> scans whole line (till enter).
+		- fgets(str, sizeof(str), stdin); 
+			- scans whole line (till enter) including enter key '\n';
+			- if num of chars are more than the size (2nd arg), is scans only size-1 chars & append \0.
+			
+		- printf("%s", str); --> print string
+		- puts(str); --> print string follwed by \n.
+		- fputs(str, stdout); --> print string
+		
+	+ String Operations:
+		1. cnt = strlen(str);
+			- returns number of chars in string excluding '\0' char.
+		2. strcpy(str1, str2);
+			- copy str2 into str1.
+		3. strcat(str1, str2);
+			- append str2 to the str1.
+		4. diff = strcmp(str1, str2);
+			- compare two strings and return diff.
+			- diff=0, when two strings are same.
+			- diff=+ve (+1), when str1 > str2 (alphabetically).
+			- diff=-ve (-1), when str1 < str2 (alphabetically).
+				
+				int pstrcmp(char *s1, char *s2)
+				{
+					while(*s1==*s2 && *s1!='\0')
+					{
+						s1++;
+						s2++;
+					}
+					return *s1 - *s2;
+				}
+		5. diff = stricmp(str1, str2);
+			- compare two strings case insensitive.
+		6. ptr = strchr(str, ch);
+			if(ptr==NULL)
+				printf("not found.\n");
+			else
+				printf("index : %d\n", ptr-str);
+			- search given char in given string and return its address. If not found return NULL pointer.
+		7. ptr = strstr(str, find_str);
+			if(ptr==NULL)
+				printf("not found.\n");
+			else
+				printf("index : %d\n", ptr-str);
+	
++ Array of Pointers:
+	char* arr[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" };
+	for(i=0; i<7; i++)
+		puts(arr[i]);
+
++ Command line args:
+	
++ Dangling Pointer:
+	Pointer pointing to memory that is not valid (not belong to) for the current application.
+	
+	1. Pointer is pointing to the memory which is freed (free()).
+	2. Uninitialized pointer.
+	3. Returning address of a local variable from a function.
+	
+	Any read/write operation on location pointed by dangling pointer may cause termination of program with error message "Segmentation Fault".
+	
++ Memory Leakage:
+	- Memory is allocated dynamically but not released -- memory leakage.
+	- This memory is not utilizable by any application or OS and hence memory wastage.
+	- Since memory is not utilizable, effective RAM is size is reduce and affect overall system performance.
+	- The leaked memory is reclaimed when process is terminated (on all modern systems).
+	
++ valgrind:
+	- The linux tool used to find memory related errors like dangling pointer and memory leakage.
+	- valgrind ./exename
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

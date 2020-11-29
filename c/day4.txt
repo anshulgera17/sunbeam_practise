@@ -1,0 +1,301 @@
++ Dynamic Memory Allocation:
+	- Allocate memory for 2D array -- number of columns are known.
+		int (*ptr)[3];
+		ptr = (int(*)[3]) malloc(rows * 3 * sizeof(int));
+		for(i=0; i<rows; i++)
+		{
+			for(j=0; j<3; j++)
+				scanf("%d", &ptr[i][j]);
+		}
+		for(i=0; i<rows; i++)
+		{
+			for(j=0; j<3; j++)
+				printf("%d\t", ptr[i][j]);
+			printf("\n");
+		}
+		free(ptr);
+		ptr = NULL;
+	- Allocate memory for 2D array -- 
+		int main()
+		{
+			int **ptr;
+			scanf("%d%d", &rows, &cols);
+			ptr = (int**)malloc(rows * sizeof(int*));
+			for(i=0; i<rows; i++)
+				ptr[i] = (int*) malloc(cols * sizeof(int));
+			input(ptr, rows, cols);
+			display(ptr, rows, cols);
+			for(i=0; i<rows; i++)
+				free(ptr[i]);
+			free(ptr);
+		}
+		void input(int **ptr, int rows, int cols)
+		{
+			for(i=0; i<rows; i++)
+			{
+				for(j=0; j<cols; j++)
+					scanf("%d", &ptr[i][j]);
+			}		
+		}
+		void display(int **ptr, int rows, int cols)
+		{
+			for(i=0; i<rows; i++)
+			{
+				for(j=0; j<cols; j++)
+					printf("%d\t", ptr[i][j]);
+				printf("\n");
+			}		
+		}
+	* Heap corruption:
+		int *arr = (int*)malloc(3 * sizeof(int));
+		for(i=0; i<=3; i++)
+			arr[i] = i;
+		free(arr);
+		
+		- When write operation is performed beyond dynamically allocated memory block, then it is called as "Heap corruption".
+		- When that block is freed using free(), it verifies if heap corruption occured and then raise error.
+	* malloc():
+		void* malloc(unsigned int);
+			- e.g. ptr = (int*) malloc(3 * sizeof(int));
+			- allocated memory contains garbage values.
+	* calloc():
+		void* calloc(unsigned int cnt, unsigned int size);
+			- e.g. ptr = (int*) calloc(3, sizeof(int));
+			- allocated memory contains zero values.
+	* realloc();
+		void* realloc(void *ptr, unsigned int new_size);
+			- 	ptr = (int*) malloc(3 * sizeof(int));
+				new_ptr = (int*) realloc(ptr, 6 * sizeof(int));
+				if(new_ptr != ptr)
+					ptr = new_ptr;
+		- Used to grow or shrink size of dynamically allocated memory block.
+
++ ptr = (int*) malloc(3 * sizeof(int));
+	memset(ptr, 0, 3*sizeof(int));
+	
++ Structure:
+	- struct is a user-defined data type.
+	- struct is used to combine "logically related" values together.
+		struct student
+		{
+			int roll;
+			char name[20];
+			float marks;
+		};
+	- data type --> "struct student"
+	- 	struct student s1 = { 124, "Nilesh", 77.0f };
+		struct student s2;
+		printf("%d %s %f\n", s1.roll, s1.name, s1.marks);
+		scanf("%d%s%f", &s2.roll, s2.name, &s2.marks);
+	- Syntax:
+		struct_var.struct_member
+	- 	struct student a = {1, "...", 34};
+		struct student *p;
+		p = &a;
+		printf("%d %s %f\n", a.roll, a.name, a.marks);
+		printf("%d %s %f\n", p->roll, a->name, a->marks);
+	- Syntax:
+		struct_ptr->struct_member
+	- struct student arr[3];
+		arr[i] - ith struct student var
+			for(i=0; i<3; i++)
+				printf("%d %s %f", arr[i].roll, arr[i].name, arr[i].marks);
+	- Pass by value:
+		struct student
+		{
+			int roll;
+			char name[20];
+			float marks;
+		};
+		main()
+		{
+			struct student a = {10, "", 12};
+			fun(a);
+		}
+		void fun(struct student x)
+		{
+			printf("%d", x.roll);
+		}
+	- Pass by address:
+		main()
+		{
+			struct student a = { ... };
+			fun(&a);
+		}
+		void fun(struct student *p)
+		{
+			printf("%d", p->roll);
+		}
+	
+	+ self referential struct:
+		struct node
+		{
+			int data;
+			struct node *next;
+		};
+	+ Nested structures:
+		struct date
+		{
+			int day, month, year;
+		};
+		struct student
+		{
+			int roll;
+			char name[20];
+			float marks;
+			struct date birth;
+		};
+		main()
+		{
+			struct student s1 = { 10, "ABC", 34, {24, 5, 2012} };
+			struct student s2;
+			s2.roll = 20;
+			strcpy(s2.name, "PQR");
+			s2.marks = 35;
+			s2.birth.day = 28;
+			s2.birth.month = 8;
+			s2.birth.year = 1244;
+		}
+	+ 
+		struct student
+		{
+			int roll;
+			char name[20];
+			float marks;
+			struct date
+			{
+				int day, month, year;
+			} birth;
+		};
+	
++ union:
+	- union is user defined data type.
+	- size of union = size of largest element of the union.
+	- all members of union share the same memory space.
+		union result
+		{
+			char grade;
+			float marks;
+		};
+		struct student
+		{
+			int roll;
+			char name[20];
+			int std;
+			union result res;
+		};
+		int main()
+		{
+			struct student s1;
+			printf("enter roll, name, std : ");
+			scanf("%d%s%d", &s1.roll, s1.name, &s1.std);
+			if(s1.std > 4)
+			{
+				printf("enter marks : ");
+				scanf("%f", &s1.res.marks);
+			}
+			else
+			{	
+				printf("enter grade : ");
+				s1.res.grade = getchar();
+			}
+			printf("%d %s %d\n", s1.roll, s1.name, s1.std);
+			if(s1.std > 4)
+				printf("marks : %f\n", s1.res.marks);
+			else
+				printf("grade : %c\n", s1.res.grade);
+			return 0;
+		}
+	
++ enum:
+	- enum is user defined data type.
+	- it declares int constants to improve the readability of the program.
+	- enum colors
+	{
+		RED=-2, GREEN, BLUE, WHITE=-4, BLACK, YELLOW, ORANGE
+	};
+	printf("%d%d%d%d", RED, GREEN, YELLOW, ORANGE);
+	
+	enum colors c = RED;
+	switch(c)
+	{
+	case RED:
+		break;
+	case YELLOW:	// error
+		break;
+	}
+	
++ menu driven program for arithmetic operations on ints:
+
+int main()
+{
+	int a, b, c;
+	int ch;
+	do {
+		printf("0. exit\n1. add\n2. subtract\n3. multiply\n4. divide\nenter choice : ");
+		scanf("%d", &ch);
+		printf("enter two numbers : ");
+		scanf("%d%d", &a, &b);
+		switch(ch)
+		{
+		case 1:
+			c = a + b;
+			printf("result = %d\n", c);
+			break;
+		case 2:
+			c = a - b;
+			printf("result = %d\n", c);
+			break;
+		// ...
+		}
+	} while(ch != 0);
+}
+	
++ File IO: -- C++ & OS
++ Preprocessor Directive: -- C++
+	- #define
+	- #if, #else, #endif, #elif, #ifndef, #ifdef
++ const & volatile keyword: -- C++
++ Bitwise operators: -- 
++ Variable argument function: -- 
+
++ Recursion: -- Data Structure
+	+ Function calling itself.
+	+ Disadvatage:
+		- More space -- Each funct call FAR is created on stack.
+		- More time -- time for creating & destroying each FAR.
+	+ Advantages:
+		- Simplify the program code.
+	* Factorial:
+		n! = n * (n-1)!
+			3! = 3 * 2!
+			2! = 2 * 1!
+			1! = 1 * 0!
+			0! = 1
+		
+		
+int fact(int n)
+{
+	int res;
+	if(n==0)
+		return 1;
+	res = n * fact(n-1);
+	return res;
+}
+int main()
+{
+	int res;
+	res = fact(4);
+	printf("%d\n", res);
+	return 0;
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
